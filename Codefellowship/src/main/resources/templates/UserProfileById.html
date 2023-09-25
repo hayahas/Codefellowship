@@ -12,6 +12,7 @@
 
 <h3  th:text="${'User Id: ' + id }" ></h3>
 
+<a th:href="@{'/following/' + ${id}}"><button>Follow</button></a>
 
 <img src="https://img.freepik.com/premium-vector/anonymous-user-circle-icon-vector-illustration-flat-style-with-long-shadow_520826-1931.jpg" alt="profilePicture">
 <br><br>
