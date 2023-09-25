@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="">
+<head>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Feed</title>
+</head>
+<body>
+
+
+<ul style="list-style:none;">
+    <p th:text="${ username + ' posted:' }"></p>
+    <th:block th:each="post : ${p}">
+        <li>
+            <div class="card">
+                <div class="card-content">
+                    <p class="card-text" th:text="${post.body}"></p>
+                </div>
+            </div>
+        </li>
+    </th:block>
+</ul>
+</body>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 0;
+    }
+
+    h1 {
+        color: #333;
+    }
+
+    form {
+        margin: 20px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    p {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    input[type="submit"], button {
+        background-color: #007BFF;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    input[type="submit"]:hover, button:hover {
+        background-color: #0056b3;
+    }
+
+    img {
+        max-width: 200px;
+        height: auto;
+    }
+     .card {
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin: 10px 0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        width: 300px; /* Adjust the width as needed */
+    }
+
+    .card-content {
+        padding: 10px;
+    }
+
+    .card-text {
+        font-size: 16px;
+        margin: 0;
+    }
+
+    .card-time {
+        font-size: 14px;
+        color: #777;
+        margin-top: 5px;
+    }
+</style>
+</html>

@@ -30,6 +30,19 @@ public class ApplicationUser implements UserDetails {
     private String dateOfBirth;
     private String bio;
 
+    @ManyToMany(mappedBy = "followers")
+    private List<ApplicationUser> following;
+
+    @ManyToMany
+    @JoinTable(
+            name = "FollowingAndFollowers",
+            joinColumns = {@JoinColumn(name="following")},
+            inverseJoinColumns = {@JoinColumn(name="followers")}
+    )
+    private List<ApplicationUser> followers;
+
+
+
     @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
     private List<Posts> posts;
 
@@ -102,7 +115,21 @@ public class ApplicationUser implements UserDetails {
         return username;
     }
 
+    public List<ApplicationUser> getFollowing() {
+        return following;
+    }
 
+    public void setFollowing(List<ApplicationUser> following) {
+        this.following = following;
+    }
+
+    public List<ApplicationUser> getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(List<ApplicationUser> followers) {
+        this.followers = followers;
+    }
 
     public void setUsername(String username) {
         this.username = username;

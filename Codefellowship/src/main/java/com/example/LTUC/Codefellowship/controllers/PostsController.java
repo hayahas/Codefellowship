@@ -14,6 +14,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -66,6 +67,45 @@ public class PostsController {
         }
         return new RedirectView("/myprofile");
     }
+
+    @PostMapping("/following/{id}")
+      public RedirectView followUser(Principal p){
+
+        return new RedirectView("");
+      }
+    @GetMapping("/following/{id}")
+    public String followingProfile(Principal p,Model m, @PathVariable Long id){
+        if(p!=null){
+            String username= p.getName();
+            ApplicationUser follower = applicationUserRepository.findByUsername(username);
+        }
+
+        ApplicationUser followeduser = applicationUserRepository.findById(id).orElseThrow();
+        m.addAttribute("username",followeduser.getUsername());
+        List<Posts> userPosts = followeduser.getPosts();
+        m.addAttribute("p",userPosts);
+
+        return "followingUserPosts.html";
+    }
+
+
+    @GetMapping("/feed")
+    public String feed(Principal p,Model m){
+        if(p!=null){
+            String username= p.getName();
+            ApplicationUser follower = applicationUserRepository.findByUsername(username);
+            List<ApplicationUser> followingusers = follower.getFollowing();
+            List<Posts> userPosts = new ArrayList<>();
+            for (ApplicationUser followinguser:followingusers) {
+                userPosts.addAll(followinguser.getPosts());
+            }
+
+            m.addAttribute("p",userPosts);
+        }
+
+        return "feedPage.html";
+    }
+
 
     //handle errors
     @ResponseStatus(value = HttpStatus.NOT_FOUND)

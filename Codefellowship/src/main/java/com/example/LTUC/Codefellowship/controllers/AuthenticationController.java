@@ -37,9 +37,6 @@ public class AuthenticationController {
     PasswordEncoder passwordEncoder;
 
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
-
     //user sign up an acc
     @PostMapping("/signup")
     public RedirectView signupAnAccount( RedirectAttributes redir,String username, String password, String firstname, String lastname, String dateOfBirth, String bio){
@@ -83,16 +80,15 @@ public class AuthenticationController {
     //return login page
     @GetMapping("/login")
     public String returnLogin(){
-        System.out.println("*****************************");
-        System.out.println( SecurityContextHolder.getContext().getAuthentication().getName());
+
         return "LoginPage.html";
     }
 
     //user login
-//    @PostMapping("/login")
-//    public RedirectView homeFromLogin() {
-//        return new RedirectView("/myprofile");
-//    }
+    @PostMapping("/login")
+    public RedirectView homeFromLogin() {
+        return new RedirectView("/myprofile");
+    }
 
     //to return user profile on click
     @GetMapping("/user/{id}")
@@ -149,19 +145,22 @@ public class AuthenticationController {
 
     //logout
     @GetMapping("/logout")
-    public String logout(){
+    public String logout(HttpServletRequest request){
+
+        HttpSession session = request.getSession();
+        if(session!=null) session.invalidate();
     return "LoginPage.html";
     }
 
 //    //logout
-//    @PostMapping("/logout")
-//    public RedirectView logout(HttpServletRequest request){
-//
-//    HttpSession session = request.getSession();
-//    session.invalidate();
-//
-//    return new RedirectView("/login");
-//    }
+    @PostMapping("/logout")
+    public RedirectView logoutAndEndSession(HttpServletRequest request){
+
+    HttpSession session = request.getSession();
+    if(session!=null) session.invalidate();
+
+    return new RedirectView("/");
+    }
 
     //to handle errors
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
