@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Edit Profile</title>
+</head>
+<body>
+<h1>User Information</h1>
+
+<h3  th:text="${'User Id: ' + id }" ></h3>
+
+
+<img src="https://img.freepik.com/premium-vector/anonymous-user-circle-icon-vector-illustration-flat-style-with-long-shadow_520826-1931.jpg" alt="profilePicture">
+<br><br>
+<label for="username">Username : </label>
+<input th:value="${username}" type="text" id="username" name="username"/>
+<br><br>
+<label for="firstname">First Name : </label>
+<input th:value="${firstname}" type="text" id="firstname" name="firstname"/>
+<br><br>
+<label for="lastname">Last Name : </label>
+<input th:value="${lastname}" type="text" id="lastname" name="lastname"/>
+<br><br>
+<label for="dateOfBirth">Date Of Birth : </label>
+<input th:value="${dateOfBirth}" type="text" id="dateOfBirth" name="dateOfBirth"/>
+<br><br>
+<label for="bio">Your Bio : </label><br>
+<textarea th:text="${bio}" id="bio" name="bio"  rows="4" cols="50" ></textarea>
+<br>
+<input type="submit" value="Save">
+</form>
+
+</body>
+
+<style>
+  body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 0;
+    }
+
+    h1 {
+        color: #333;
+    }
+
+    form {
+        margin: 20px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        background-color:white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    p {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    input[type="submit"], button {
+        background-color: #007BFF;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    input[type="submit"]:hover, button:hover {
+        background-color: #0056b3;
+    }
+
+    img {
+        max-width: 200px;
+        height: auto;
+    }
+
+
+</style>
+</html>

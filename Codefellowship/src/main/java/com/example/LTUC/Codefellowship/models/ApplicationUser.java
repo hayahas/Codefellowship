@@ -4,9 +4,13 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.xml.crypto.Data;
+
 import java.util.Collection;
-import java.util.Date;
+import java.util.List;
+
+
+import net.bytebuddy.asm.Advice;
+
 
 @Entity
 public class ApplicationUser implements UserDetails {
@@ -15,32 +19,75 @@ public class ApplicationUser implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Column(nullable = false)
-    String username;
-    @Column(nullable = false)
-    String password;
-    @Column(nullable = false)
-    String firstname;
-    @Column(nullable = false)
-    String lastname;
-    @Column(nullable = false)
-    Date dateOfBirth;
-    String bio;
+   private String username;
+
+    private String password;
+
+    private String firstname;
+
+    private String lastname;
+
+    private String dateOfBirth;
+    private String bio;
+
+    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
+    private List<Posts> posts;
 
     public ApplicationUser() {
     }
-
     public ApplicationUser(String username, String password) {
         this.username = username;
         this.password = password;
     }
-    public ApplicationUser(String username, String password, String firstname, String lastname, Date dateOfBirth, String bio) {
+
+    public List<Posts> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Posts> posts) {
+        this.posts = posts;
+    }
+
+    public ApplicationUser(String username, String password, String firstname, String lastname, String dateOfBirth, String bio) {
         this.username = username;
         this.password = password;
         this.firstname = firstname;
         this.lastname = lastname;
         this.dateOfBirth = dateOfBirth;
         this.bio = bio;
+    }
+    public ApplicationUser(String username, String password, String firstname, String lastname, String dateOfBirth, String bio, List<Posts> posts) {
+        this.username = username;
+        this.password = password;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.dateOfBirth = dateOfBirth;
+        this.bio = bio;
+        this.posts = posts;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
     }
 
     public Long getId() {
@@ -86,11 +133,11 @@ public class ApplicationUser implements UserDetails {
         this.lastname = lastname;
     }
 
-    public Date getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -101,29 +148,9 @@ public class ApplicationUser implements UserDetails {
     public void setBio(String bio) {
         this.bio = bio;
     }
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
 
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
 
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
 
 
 }
