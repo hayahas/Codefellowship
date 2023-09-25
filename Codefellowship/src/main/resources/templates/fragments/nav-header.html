@@ -1,32 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Log in</title>
-<!--    <link rel="stylesheet" type="text/css" href="style.css">-->
+    <title>404</title>
+
 </head>
 <body>
-
-
-<form action="/perform_login" method="POST">
-    <h1>Log in </h1>
-
-        <label for="username">User Name</label>
-        <input type="text" name="username" id="username" required>
-    <br><br>
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password" required>
-    <br><br>
-        <input type="submit" value="Log in">
-
-</form>
-
-
-<p>Don't have an Account? <a href="/signup"> Sign up</a></p>
-
+<h3 th:if="${username}" th:text="'Current User from fragment 1: ' + ${username}"></h3>
+<nav th:if="${username}" th:fragment="user-error" th:text="'Current User from fragment 2: ' + ${username}"></nav>
 </body>
 <style>
 body {

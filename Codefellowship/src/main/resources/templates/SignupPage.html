@@ -1,21 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Sign up</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+
 </head>
 <body>
-<form action="/signup" method="post">
 
-    <h1>Sign up</h1>
+<h1>Sign up</h1>
 
+<div th:replace="/fragments/error-fragment :: user-error" ></div>
 
-        <label for="username">User Name</label>
-        <input type="text" name="username" id="username" >
+<form action="/signup" method="POST">
+
+    <label for="username">User Name</label>
+    <input type="text" name="username" id="username" >
     <br><br>
     <label for="password">Password</label>
     <input type="password" name="password" id="password" >
+
     <br><br>
     <label for="firstname">First Name</label>
     <input type="text" name="firstname" id="firstname" >
@@ -27,16 +33,56 @@
     <input type="date" name="dateOfBirth" id="dateOfBirth" >
     <br><br>
     <label for="bio">Your Bio</label><br>
-    <textarea id="bio", name="bio"  rows="4" cols="50" ></textarea>
+    <textarea id="bio" name="bio"  rows="4" cols="50" ></textarea>
 
-
-
-
-
+    <br>
     <input type="submit" value="Sign up">
-
 </form>
-
-<p>Already have an Account? <a href="/loginfromsignup"> Sign up</a></p>
+<p>Already have an Account? <a href="/login"> Log in</a></p>
 </body>
+<style>
+ body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Ensures the content is centered vertically */
+}
+
+h1 {
+    color: #333;
+}
+
+form{
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+p {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+input[type="submit"] {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+</style>
 </html>

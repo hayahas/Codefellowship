@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Profile</title>
+</head>
+<body>
+
+<div style="text-align: center;">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHkAAAB5CAMAAAAqJH57AAAAY1BMVEX///8AAAD8/Pz29vbm5ubw8PCxsbE8PDy5ubnz8/O1tbUfHx/Dw8Ofn5/Z2dnc3NzJyckpKSlKSkoyMjJfX1+YmJiPj49tbW1zc3NCQkKqqqp7e3sRERGGhobT09NZWVkYGBhQHeVOAAACq0lEQVRoge2aWXKjMBBAacQis9iYNTZb7n/KEOOZECxQW1IzNVV6f7FTPANSb+A4FovFYrFYLBYLDi/jEc+8g62MN/CHhrPDvH4Vw5K48o8RB1dYcw0O8LKPF+83H+SX3AuFYoCQeK158YZ4utukav9zUwzwSbjO3K1LPXNzycztrhigpRInEjFARmR+3cdrQhoxl4oBEhJzjjCPFGIPIQag2Fl3lPlOYJZtqRmCjeWOKHNuPpq4N5Q5Np+zJJHzL//OfDJvxmxngI6gQmjkWqDJVzXK3JgXo8I2QEpg9lHmC4HZwSzugkLspAgzRdieKm2EmUSMOWmyVkN2p3MqsXPeF1PW+vt7mqYIe7JXmESU4j01pxU7TrYhPlNK59Tri4qTki3+wzgJFHP3EhQr7zh/nhU0i+wRR/pH+mVJ+1Mn3Nrh8aHbf/9lPlfNx52CxTMZMW+4V3WdJt7zCl+ev6U3XBospiOp6NDuT2Q1OzFh5eKuhnztdvkyrpYm1asqP66HxZdDvRqeGGzrRO3FWAdBFAS18DtT4l5w8H16M2Jc6fcbI6EU1zevMZEwS7lGQKkvjpTEBnLmST4QEnPVzR6Vohig0hP7qqc8nbTesAY3lhGjV/Uj23UhWgPBQUMMMMgFm7wfN5foxNBOy9ypiyU9hRT1ehTTt+6hXpThxn7bqOdpTbF6Oy1/eiBDtfz29Jb2tLiVs/Tu4yk5Og+wTlrRUytPMty0U0SuWXaf1IqhqRzS7isZbtK6pjHQaLgqacNQX/d+eWBsFDi8VxPFOol5xVtXvDXbQQ+4RzfTLjZ4wjOu4JWKV653iqffLJVFtCKlesOC8b2MPXKiodTMJQ1FGawLU5LnCL/xeJ0v7V1e8wNfXGLnLOERT7Lzce8rWSwWi8VisVj+b74AIHQdtVSbO3UAAAAASUVORK5CYII=" alt="profilePicture">
+    <h1>User Information</h1>
+
+    <form style="text-align: center;">
+        <p th:text="${'Username : ' + username}"></p>
+        <br>
+        <p th:text="${'Firstname : ' + firstname}"></p>
+        <br>
+        <p th:text="${'Lastname : ' + lastname}"></p>
+        <br>
+        <p th:text="${'Date Of Birth : ' + dateOfBirth}"></p>
+        <br>
+        <p th:text="${'Your Bio : ' + bio}"></p>
+        <br>
+    </form>
+
+    <a href="/"><button style="background-color: #007BFF; color: #fff; padding: 10px 20px; border: none; cursor: pointer; border-radius: 5px;">Back to home</button></a> <br>
+
+    <h2> Add new Post </h2>
+    <form action="/createpost" method="POST">
+        <label>New Post </label><br>
+        <textarea name="body" rows="4" cols="50" ></textarea>
+        <br>
+        <input type="submit" value="Add" style="background-color: #007BFF; color: #fff; padding: 10px 20px; border: none; cursor: pointer; border-radius: 5px;">
+    </form>
+    <div th:replace="/fragments/error-fragment :: user-error" ></div>
+    <h2>Your Posts</h2>
+
+    <ul style="list-style:none;">
+        <th:block th:each="post : ${p}">
+            <li>
+                <div class="card">
+                    <div class="card-content">
+                        <p class="card-text" th:text="${post.body}"></p>
+                        <p class="card-time" th:text="${'Time : ' + post.timeCreated}"></p>
+                    </div>
+                </div>
+            </li>
+        </th:block>
+    </ul>
+
+
+
+</div>
+
+</body>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 0;
+    }
+
+    h1 {
+        color: #333;
+    }
+
+    form {
+        margin: 20px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    p {
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    input[type="submit"], button {
+        background-color: #007BFF;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    input[type="submit"]:hover, button:hover {
+        background-color: #0056b3;
+    }
+
+    img {
+        max-width: 200px;
+        height: auto;
+    }
+     .card {
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin: 10px 0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        width: 300px; /* Adjust the width as needed */
+    }
+
+    .card-content {
+        padding: 10px;
+    }
+
+    .card-text {
+        font-size: 16px;
+        margin: 0;
+    }
+
+    .card-time {
+        font-size: 14px;
+        color: #777;
+        margin-top: 5px;
+    }
+</style>
+</html>
